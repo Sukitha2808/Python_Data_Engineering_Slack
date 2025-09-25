@@ -1,0 +1,212 @@
+A closure is a function that captures and remembers variables from the scope where it was created,
+
+even if that scope no longer exists.
+
+How it works:
+
+You define a nested function inside another function.
+
+The inner function uses variables from the outer function.
+
+The outer function returns the inner function.
+
+The returned inner function "remembers" the outer variables → this is a closure.
+def counter():
+
+
+def outer_function(x):
+    def inner_function(y):
+        return x + y  # inner function uses 'x' from outer scope
+    return inner_function
+
+# Create closure
+closure = outer_function(10)
+
+print(closure(5))   # 15
+print(closure(20))  # 30
+
+
+Here:
+
+outer_function ends after being called with 10.
+
+But inner_function still "remembers" x = 10.
+
+That’s why the closure works even after outer_function is gone.
+
+=========================================================================
+
+    count = 0
+    def increment():
+        nonlocal count
+        count += 1
+        return count
+    return increment
+
+c = counter()
+print(c())  # 1
+print(c())  # 2
+print(c())  # 3
+
+===============================================================
+
+# List comprehension (stores all values in memory)
+
+squares_list = [x*x for x in range(1_000_000)]
+
+print(type(squares_list))  # <class 'list'>
+
+print(len(squares_list))   # 1000000
+
+# This will consume hundreds of MBs of RAM because the whole list is stored.
+
+import sys
+
+squares_list = [x*x for x in range(1_000_000)]
+squares_gen = (x*x for x in range(1_000_000))
+
+print("List size:", sys.getsizeof(squares_list))     # Large (e.g., ~8 MB+)
+print("Generator size:", sys.getsizeof(squares_gen)) # Tiny (e.g., ~112 bytes)
+
+=========================================================================
+
+What is a Decorator in Python?
+
+A decorator is a special function in Python that allows you to modify or enhance the behavior of another function or 
+
+method without changing its actual code.
+
+
+It’s often used for code reusability, logging, authentication, performance measurement, validation, etc.
+
+In short:
+
+Decorator = A function that takes another function as input and returns a new function.
+
+
+Why do we need Decorators?
+
+To add extra functionality to existing functions in a clean and reusable way.
+
+To follow the DRY principle (Don’t Repeat Yourself).
+
+To make code more readable and maintainable.
+
+
+1. Basic Function Decorator
+def my_decorator(func):
+    def wrapper():
+        print("Before the function runs...")
+        func()
+        print("After the function runs...")
+    return wrapper
+
+@my_decorator
+def say_hello():
+    print("Hello, World!")
+
+say_hello()
+
+
+
+
+2. Decorator with Arguments
+
+def repeat_decorator(func):
+    def wrapper(*args, **kwargs):
+        print("Running twice...")
+        func(*args, **kwargs)
+        func(*args, **kwargs)
+    return wrapper
+
+@repeat_decorator
+def greet(name):
+    print(f"Hello {name}!")
+
+greet("Alice")
+
+
+===========================================================
+
+
+
+Timing Decorator (Performance Measurement)
+
+import time
+
+def timer_decorator(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f"{func.__name__} took {end-start:.5f} seconds")
+        return result
+    return wrapper
+
+@timer_decorator
+def compute_square(n):
+    return [i**2 for i in range(n)]
+
+compute_square(1000000)
+
+==========================================================
+
+Decorator for Price Formatting
+def price_decorator(func):
+    def wrapper(*args, **kwargs):
+        price = func(*args, **kwargs)
+        print(f"Price in INR: ₹{price}")
+        usd = price / 83  # Example: 1 USD ≈ 83 INR
+        print(f"Price in USD: ${usd:.2f}")
+        return price
+    return wrapper
+
+
+@price_decorator
+def get_price_in_inr():
+    return 8300   # Example price
+
+
+@price_decorator
+def laptop_price():
+    return 55000
+
+
+# Usage
+get_price_in_inr()
+print("------")
+laptop_price()
+
+=============================================================================
+
+
+def price_decorator(exchange_rate):
+    """Decorator factory to format INR price into INR and USD."""
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            price_in_inr = func(*args, **kwargs)
+            print(f"Price in INR: ₹{price_in_inr}")
+            usd = price_in_inr / exchange_rate
+            print(f"Price in USD: ${usd:.2f} (Rate: 1 USD = ₹{exchange_rate})")
+            return price_in_inr
+        return wrapper
+    return decorator
+
+
+@price_decorator(exchange_rate=83)   # you can change rate here
+def mobile_price():
+    return 24999
+
+
+@price_decorator(exchange_rate=82.5)
+def laptop_price():
+    return 55000
+
+
+# Usage
+mobile_price()
+print("------")
+laptop_price()
+
+====================================================================================
+

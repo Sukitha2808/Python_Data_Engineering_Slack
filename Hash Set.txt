@@ -1,0 +1,75 @@
+A Hash Set is a form of Hash Table data structure that usually holds a large number of elements.
+
+Using a Hash Set we can search, add, and remove elements really fast.
+
+Hash Sets are used for lookup, to check if an element is part of a set.
+
+
+A Hash Set stores unique elements in buckets according to the element's hash code.
+
+
+Hash code: A number generated from an element's unique value (key), to determine what bucket that Hash Set element belongs to.
+
+Unique elements: A Hash Set cannot have more than one element with the same value.
+
+Bucket: A Hash Set consists of many such buckets, or containers, to store elements.
+
+ If two elements have the same hash code, they belong to the same bucket. 
+
+The buckets are therefore often implemented as arrays or linked lists, because a bucket needs to be able to hold more than one element.
+
+
+class SimpleHashSet:
+    def __init__(self, size=100):
+        self.size = size
+        self.buckets = [[] for _ in range(size)]  # A list of buckets, each is a list (to handle collisions)
+
+    def hash_function(self, value):
+        # Simple hash function: sum of character codes modulo the number of buckets
+        return sum(ord(char) for char in value) % self.size
+
+    def add(self, value):
+        # Add a value if it's not already present
+        index = self.hash_function(value)
+        bucket = self.buckets[index]
+        if value not in bucket:
+            bucket.append(value)
+
+    def contains(self, value):
+        # Check if a value exists in the set
+        index = self.hash_function(value)
+        bucket = self.buckets[index]
+        return value in bucket
+
+    def remove(self, value):
+        # Remove a value
+        index = self.hash_function(value)
+        bucket = self.buckets[index]
+        if value in bucket:
+            bucket.remove(value)
+
+    def print_set(self):
+        # Print all elements in the hash set
+        print("Hash Set Contents:")
+        for index, bucket in enumerate(self.buckets):
+            print(f"Bucket {index}: {bucket}")
+
+# Creating the Hash Set from the simulation
+hash_set = SimpleHashSet(size=10)
+
+hash_set.add("Charlotte")
+hash_set.add("Thomas")
+hash_set.add("Jens")
+hash_set.add("Peter")
+hash_set.add("Lisa")
+hash_set.add("Adele")
+hash_set.add("Michaela")
+hash_set.add("Bob")
+
+hash_set.print_set()
+
+print("\n'Peter' is in the set:",hash_set.contains('Peter'))
+print("Removing 'Peter'")
+hash_set.remove('Peter')
+print("'Peter' is in the set:",hash_set.contains('Peter'))
+print("'Adele' has hash code:",hash_set.hash_function('Adele'))

@@ -1,0 +1,192 @@
+
+Today Agenda:
+==============
+
+1. DSA continuation
+
+2. Solving Python Questions[PCAP]
+
+3. hacker rank [ DSA ]
+
+
+
+What is a Binary Tree?
+
+A binary tree is a type of data structure where:
+
+Each node can have at most two children.
+
+The children are referred to as:
+
+Left child
+
+Right child
+
+The "binary" part means two (not more than 2 children per node).
+
+
+        A
+       / \
+      B   C
+     / \   \
+    D   E   F
+
+
+Root node = A
+
+B and C are children of A
+
+D and E are children of B
+
+F is the right child of C
+
+Every node has 0, 1, or 2 children only → so this is a valid binary tree.
+
+
+Examples of Trees That Are Not Binary Trees
+
+These are trees where a node has more than two children.
+
+Example 1 (Ternary Tree → not binary):
+
+
+        A
+      / | \
+     B  C  D
+
+
+Example 2 (General Tree → not binary):
+
+Binary Tree → Every node has at most 2 children.
+
+Not Binary Trees → Any node with more than 2 children.
+
+
+Heap Sorting - Pre requisites is Heap Tree
+
+
+Heap Tree (Heap Data Structure)
+
+A Heap is a special type of binary tree with the following properties:
+
+Complete Binary Tree
+
+Every level of the tree is completely filled except possibly the last level, which is filled from left to right.
+
+Heap Property
+
+The values in the nodes must follow a specific ordering rule:
+
+Max Heap → Parent is always greater than or equal to its children.
+
+Min Heap → Parent is always less than or equal to its children.
+
+
+Example of a Max Heap:
+
+
+         50
+       /    \
+     30      40
+    /  \    /  
+   10  20  35
+
+
+Root (50) is greater than both children (30, 40).
+
+30 is greater than (10, 20).
+
+40 is greater than (35).
+
+Heap property holds → Max Heap.
+
+
+Example of a Min Heap:
+         10
+       /    \
+     20      30
+    /  \    /  
+   40  50  60
+
+
+Root (10) is smaller than both children (20, 30).
+
+20 is smaller than (40, 50).
+
+30 is smaller than (60).
+
+Heap property holds → Min Heap.
+
+
+Example (Not a Heap):
+         10
+       /    \
+     15      5   ← violates heap rule
+
+
+Parent 10 is not ≥ children (for max heap) and not ≤ children (for min heap).
+
+So this is not a valid heap.
+
+
+==========================================================================================
+
+Insertion in Heap
+
+Steps:
+
+Insert the new element at the end of the array (to maintain complete tree property).
+
+"Bubble up" (Heapify Up): Compare with parent and swap if larger (for Max Heap). Repeat until heap property is restored.
+
+Example: Insert 45 into Max Heap
+
+Heap (Array): [50, 30, 40, 10, 20, 35]
+
+         50
+       /    \
+     30      40
+    /  \    /  
+   10  20  35
+
+
+Insert 45 at end → [50, 30, 40, 10, 20, 35, 45]
+
+         50
+       /    \
+     30      40
+    /  \    /  \
+   10  20  35  45
+
+
+Compare 45 with parent (40) → swap.
+
+
+         50
+       /     \
+     30       45
+    /  \      /    \
+   10  20  35  40
+
+
+Array: [50, 30, 45, 10, 20, 35, 40]
+
+
+
+Now heap property is satisfied. 
+
+==============================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+

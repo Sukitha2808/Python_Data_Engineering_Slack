@@ -1,0 +1,169 @@
+An algorithm is a step-by-step procedure or a set of rules to solve a problem or perform a task.
+
+Think of it like a recipe:
+=========================
+
+Input → ingredients
+
+Process → steps in the recipe
+
+Output → the cooked dish
+
+Characteristics of an Algorithm:
+
+===============================
+Input → Takes zero or more inputs.
+
+Output → Produces at least one result.
+
+Definiteness → Each step must be clear and unambiguous.
+
+Finiteness → Must finish in a finite number of steps.
+
+Effectiveness → Steps must be simple enough to perform.
+
+
+Sample Algorithms:
+==================
+
+1. Find the Largest Number in a List
+
+Input: A list of numbers.
+
+Steps:
+
+Assume the first number is the largest.
+
+Compare with each number in the list.
+
+If a bigger number is found, update the largest.
+
+After scanning all numbers, the largest is the result.
+
+Output: Largest number.
+
+==============================================================
+2. Find the Smallest Number in a List
+
+(Similar to above, but checking for the smallest).
+===============================================================
+
+3. Sum of First N Natural Numbers
+
+Input: A number n.
+
+Steps:
+
+Initialize sum = 0.
+
+Repeat from 1 to n → add each number to sum.
+
+Print sum.
+
+Output: Sum of numbers.
+=======================================================================
+
+4. Check if a Number is Even or Odd
+
+Input: A number n.
+
+Steps:
+
+Divide n by 2.
+
+If remainder = 0 → even, else odd.
+
+Output: "Even" or "Odd".
+================================================================
+5. Find Factorial of a Number
+
+Input: A number n.
+
+Steps:
+
+Set result = 1.
+
+Repeat from 1 to n → multiply result by each number.
+
+Print result.
+
+Output: Factorial value.
+=============================================================
+6. Reverse a Number
+
+Input: A number 1234.
+
+Steps:
+
+Initialize reverse = 0.
+
+Extract last digit using mod 10.
+
+Append to reverse.
+
+Divide number by 10.
+
+Repeat until number = 0.
+
+Output: 4321.
+===========================================================
+
+7. Check if a Number is Prime
+
+Input: A number n.
+
+Steps:
+
+If n <= 1 → Not prime.
+
+Check divisibility from 2 to √n.
+
+If divisible → Not prime.
+
+Else → Prime.
+
+Output: "Prime" or "Not Prime".
+
+=============================================================
+8. Fibonacci Sequence (first N terms)
+
+Input: N.
+
+Steps:
+
+Start with 0 and 1.
+
+Add them to get next term.
+
+Repeat until N terms are generated.
+
+Output: Sequence.
+=========================================================
+
+9. Find GCD (Greatest Common Divisor)
+
+Input: Two numbers a, b.
+
+Steps (Euclidean Algorithm):
+
+While b ≠ 0: set a, b = b, a % b.
+
+Result = a.
+
+Output: GCD.
+==========================================================
+
+10. Check if a String is Palindrome
+
+Input: A string (e.g., "madam").
+
+Steps:
+
+Reverse the string.
+
+Compare original with reversed.
+
+If same → Palindrome. Else not.
+
+Output: True/False.
+====================================================

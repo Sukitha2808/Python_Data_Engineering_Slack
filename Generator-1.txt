@@ -1,0 +1,109 @@
+1. Processing Large Files (Line by Line)
+
+When working with large log files, you don’t want to load the entire file into memory.
+
+
+def read_large_file(filepath):
+    with open(filepath, "r") as file:
+        for line in file:
+            yield line.strip()
+
+# Usage
+for log in read_large_file("server_logs.txt"):
+    if "ERROR" in log:
+        print(log)
+
+
+
+2. Streaming Data (e.g., API Calls / IoT Devices)
+
+Imagine you’re consuming data from an API or IoT sensor in real time.
+
+import time
+import random
+
+def sensor_data_stream():
+    while True:
+        yield {"temperature": random.uniform(20, 30), "timestamp": time.time()}
+        time.sleep(1)
+
+# Usage
+for reading in sensor_data_stream():
+    print(reading)
+
+====================================================================================================
+
+Pagination of Database Records
+
+Fetching millions of rows from a database can blow up memory. Instead, fetch in chunks lazily:
+
+def fetch_in_batches(cursor, batch_size=1000):
+    while True:
+        rows = cursor.fetchmany(batch_size)
+        if not rows:
+            break
+        yield from rows
+
+# Usage
+for row in fetch_in_batches(db_cursor, 1000):
+    process(row)
+
+
+Real-world use case: Reading data from MySQL, PostgreSQL, or MongoDB in batches.
+================================================================================================
+
+
+import sqlite3
+from datetime import datetime
+
+# ---------- Extract ----------
+def extract_logs(file_path):
+    """Read logs lazily line by line."""
+    with open(file_path, "r") as f:
+        for line in f:
+            yield line.strip()
+
+# ---------- Transform ----------
+def filter_errors(log_lines):
+    """Filter only ERROR logs and enrich with timestamp."""
+    for line in log_lines:
+        if "ERROR" in line:
+            yield {
+                "timestamp": datetime.now().isoformat(),
+                "message": line
+            }
+
+# ---------- Load ----------
+def load_to_db(error_logs, db_path="errors.db"):
+    """Insert error logs into SQLite DB lazily."""
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("""CREATE TABLE IF NOT EXISTS errors (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        timestamp TEXT,
+                        message TEXT
+                    )""")
+
+    for log in error_logs:
+        cursor.execute("INSERT INTO errors (timestamp, message) VALUES (?, ?)", 
+                       (log["timestamp"], log["message"]))
+    conn.commit()
+    conn.close()
+
+# ---------- Run ETL ----------
+if __name__ == "__main__":
+    # Simulate input log file
+    sample_file = "system_logs.txt"
+    with open(sample_file, "w") as f:
+        f.write("INFO: Service started\n")
+        f.write("ERROR: Database connection failed\n")
+        f.write("INFO: User logged in\n")
+        f.write("ERROR: Disk full\n")
+
+    logs = extract_logs(sample_file)
+    errors = filter_errors(logs)
+    load_to_db(errors)
+
+    print("ETL completed! Error logs inserted into DB.")
+
+==================================================================================================================
