@@ -1,0 +1,79 @@
+Linear Search Algorithm
+
+Problem: Given an array/list of elements and a target value, check if the target exists. 
+
+If yes, return its index (position), otherwise return -1 or "Not Found".
+
+Steps
+
+Start from the first element of the array (index = 0).
+
+Compare the current element with the target value.
+
+If the current element equals the target → return the index (position).
+
+If not, move to the next element.
+
+Repeat steps 2–4 until you reach the end of the array.
+
+If the target is not found in the entire array → return -1.
+
+
+
+Time Complexity:
+
+Best case: O(1) (if element is the first one).
+
+Worst case: O(n) (if element is last or not present).
+
+Average case: O(n).
+
+Space Complexity: O(1) (in-place search).
+========================================================================
+
+
+Binary Search Algorithm
+
+Problem: Given a sorted array (ascending or descending) and a target value, check if the target exists. 
+
+If yes, return its index; otherwise return -1.
+
+Steps (Iterative Version)
+
+Set two pointers:
+
+low = 0 (start index)
+
+high = n-1 (last index).
+
+While low <= high:
+
+Find the middle index:
+
+mid = (low + high) // 2
+
+
+Compare arr[mid] with the target:
+
+If arr[mid] == target: return mid (found).
+
+If arr[mid] < target: search in the right half → set low = mid + 1.
+
+If arr[mid] > target: search in the left half → set high = mid - 1.
+
+If the loop ends and the element is not found → return -1.
+
+
+Time Complexity:
+
+Best case: O(1) (middle element is the target).
+
+Worst case: O(log n).
+
+Average case: O(log n).
+
+✅ Space Complexity:
+
+Iterative: O(1)
+
+===============================================================================================================

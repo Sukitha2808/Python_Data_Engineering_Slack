@@ -1,0 +1,16 @@
+Prim's algorithm is a greedy algorithm used to find the Minimum Spanning Tree (MST) of a connected, weighted graph. 
+
+Here are the key steps involved:
+
+Start with an arbitrary vertex: Choose any vertex to start the algorithm.
+
+Repeat until all vertices are included: Continue the process until all vertices are part of the MST.
+
+Select the minimum edge: Choose the edge with the smallest weight that connects a vertex in the MST to a vertex outside of it.
+
+Add the edge to the MST: Include the selected edge in the MST if it does not form a cycle.
+
+Continue the process: Repeat steps 2-4 until all vertices are included in the MST
+
+
+

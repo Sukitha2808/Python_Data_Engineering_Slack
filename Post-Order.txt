@@ -1,0 +1,61 @@
+What is Postorder Traversal?
+
+In postorder traversal, we visit nodes in the order:
+
+Left Subtree
+
+Right Subtree
+
+Root
+
+Often remembered as: "Left → Right → Root"
+
+        1
+       / \
+      2   3
+     / \  /
+    4  5 6
+
+Postorder Traversal Steps:
+
+Start at root 1 → go left to 2
+
+Go left to 4 → visit 4
+
+Back to 2 → go right to 5 → visit 5
+
+Visit 2
+
+Back to root 1 → go right to 3
+
+Go left to 6 → visit 6
+
+Visit 3
+
+Finally, visit root 1
+
+ Postorder Traversal = [4, 5, 2, 6, 3, 1]
+
+
+class Node:
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
+
+def postorder(root):
+    if root:
+        postorder(root.left)        # 1. Traverse left
+        postorder(root.right)       # 2. Traverse right
+        print(root.key, end=" ")    # 3. Visit root
+
+# Example Tree
+root = Node(1)
+root.left = Node(2)
+root.right = Node(3)
+root.left.left = Node(4)
+root.left.right = Node(5)
+root.right.left = Node(6)
+
+print("Postorder Traversal:")
+postorder(root)

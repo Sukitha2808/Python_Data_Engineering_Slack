@@ -1,0 +1,51 @@
+
+Bubble Sort is one of the simplest sorting algorithms. 
+
+It repeatedly compares adjacent elements in a list and swaps them if they are in the wrong order. This process continues until the list is sorted.
+
+Steps of Bubble Sort
+====================
+
+Start at the beginning of the list.
+
+Compare the first two elements. If the first is greater than the second, swap them.
+
+Move to the next pair and repeat.
+
+After each pass, the largest element "bubbles up" to the end.
+
+Repeat passes until no swaps are needed (list is sorted).
+
+=======================================================================================
+
+Selection Sort Algorithm
+========================
+
+Selection Sort works by repeatedly selecting the smallest (or largest) element from the unsorted part of the array and placing it at the beginning.
+
+Steps
+=====
+
+Divide the array into sorted and unsorted parts.
+
+Repeatedly find the minimum element from the unsorted part.
+
+Swap it with the first element of the unsorted part.
+
+Continue until the array is sorted.
+
+
+==================================================================================
+
+Merge Sort is one of the most important sorting algorithms because it’s efficient and based on the Divide and Conquer technique.
+
+Merge Sort Algorithm:
+====================
+
+Divide → Split the array into two halves.
+
+Conquer → Recursively sort each half.
+
+Combine → Merge the two sorted halves into one sorted array.
+
+========================================================================================================================

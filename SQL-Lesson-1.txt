@@ -1,0 +1,276 @@
+-- Create Employees table
+
+CREATE TABLE BoschEmp (
+    EmpID INT PRIMARY KEY,                           -- Primary Key
+    Name VARCHAR(15) NOT NULL,                       -- Not Null constraint
+    Age INT CHECK (Age >= 18 AND Age <= 65),         -- Range constraint
+    Department VARCHAR(15) DEFAULT 'General',        -- Default constraint
+    Salary DECIMAL(8,2) CHECK (Salary >= 30000),    -- Salary must be >= 30k
+    HireDate DATE DEFAULT CURRENT_DATE               -- Default to today’s date
+);
+
+
+
+
+-- Insert valid rows
+INSERT INTO BoschEmp(EmpID, Name, Age, Department, Salary) VALUES (1, 'John', 30, 'IT', 60000.00);
+
+INSERT INTO BoschEmp(EmpID, Name, Age, Department, Salary) VALUES (2, 'Jane', 25, 'HR', 45000.00);
+
+INSERT INTO BoschEmp(EmpID, Name, Age, Department, Salary) VALUES (3, 'Sam',  40, DEFAULT, 75000.00);  
+
+select *  from boschemp;
+
+INSERT INTO BoschEmp(EmpID, Name, Age, Department, Salary) VALUES (4, 'Doss',  04, DEFAULT, 75000.00);  
+
+INSERT INTO BoschEmp(EmpID, Name, Age, Department, Salary) VALUES (4, 'Doss',  40, DEFAULT, 15000.00);  
+
+
+
+-- Insert row without Department and HireDate (Defaults applied)
+INSERT INTO BoschEmp(EmpID, FirstName, Age, Salary)
+VALUES (4, 'Mike', 'Taylor', 28, 50000.00);
+
+-- Check the inserted rows
+SELECT * FROM BoschEmp;
+
+Explanation:
+Primary Key: EmpID ensures uniqueness.
+
+NOT NULL: FirstName, LastName must always have values.
+
+CHECK constraints:
+
+Age must be between 18 and 65.
+
+Salary must be at least 30,000.
+
+DEFAULT constraints:
+
+Department defaults to 'General'.
+
+HireDate defaults to the current date.
+
+
+INSERT INTO Employees (EmpID, FirstName, LastName, Age, Salary)
+VALUES (5, 'Lucy', 'Adams', 17, 20000.00);
+It will fail because of the CHECK constraints. ✅
+
+=========================================================================================================================
+
+
+Dept table (with DeptNo as Primary Key).
+
+Emp table (with DeptNo as Foreign Key referencing Dept).
+
+Use user-defined constraint names for PK, FK, and Check.
+
+Insert sample records in both tables.
+
+SQL Script
+-- Create Department Table
+CREATE TABLE Dept (
+    DeptNo INT CONSTRAINT PK_Dept PRIMARY KEY,             -- User-defined PK constraint
+    DeptName VARCHAR(50) NOT NULL UNIQUE,                  -- Unique dept names
+    Location VARCHAR(50) DEFAULT 'Head Office'             -- Default constraint
+);
+
+-- Create Employee Table
+CREATE TABLE Emp (
+    EmpID INT CONSTRAINT PK_Emp PRIMARY KEY,               -- User-defined PK constraint
+    EmpName VARCHAR(50) NOT NULL,
+    Age INT CONSTRAINT CK_Emp_Age CHECK (Age BETWEEN 18 AND 65),  -- User-defined CHECK constraint
+    Salary DECIMAL(10,2) CONSTRAINT CK_Emp_Salary CHECK (Salary >= 30000),
+    DeptNo INT,
+    CONSTRAINT FK_Emp_Dept FOREIGN KEY (DeptNo) REFERENCES Dept(DeptNo)  -- User-defined FK constraint
+);
+
+-- Insert records into Dept table
+INSERT INTO Dept (DeptNo, DeptName, Location)
+VALUES 
+(10, 'IT', 'New York'),
+(20, 'HR', 'Chicago'),
+(30, 'Finance', 'Los Angeles');
+
+-- Insert records into Emp table
+INSERT INTO Emp (EmpID, EmpName, Age, Salary, DeptNo)
+VALUES 
+(101, 'John Doe', 30, 60000.00, 10),
+(102, 'Jane Smith', 28, 50000.00, 20),
+(103, 'Robert Brown', 40, 75000.00, 30),
+(104, 'Emily Davis', 35, 55000.00, 10);
+
+-- Check the results
+SELECT * FROM Dept;
+SELECT * FROM Emp;
+
+Key Points:
+
+Custom Constraint Names used:
+
+PK_Dept, PK_Emp → Primary Keys
+
+FK_Emp_Dept → Foreign Key
+
+CK_Emp_Age, CK_Emp_Salary → Check Constraints
+
+DeptNo in Emp must exist in Dept.
+
+If you try to insert an employee with a DeptNo not present in Dept, it will fail.
+
+👉 Example (this will fail because DeptNo=40 doesn’t exist):
+
+INSERT INTO Emp (EmpID, EmpName, Age, Salary, DeptNo)
+VALUES (105, 'Mark Wilson', 29, 45000.00, 40);
+
+==============================================================================================================
+
+SQL> select * from boschemp;
+
+     EMPID NAME                   AGE DEPARTMENT          SALARY HIREDATE
+---------- --------------- ---------- --------------- ---------- ---------
+         1 John                    30 IT                   60000 10-SEP-25
+         2 Jane                    25 HR                   45000 10-SEP-25
+         3 Sam                     40 General              75000 10-SEP-25
+
+SQL> select name, age, salary from boschemp;
+
+NAME                   AGE     SALARY
+--------------- ---------- ----------
+John                    30      60000
+Jane                    25      45000
+Sam                     40      75000
+
+SQL>
+
+=================================================================================
+
+where clause is used to filter:
+
+list those who work under IT department
+
+syntax:
+
+select * from boschemp where condition
+
+
+
+select * from boshemp where department='IT' ;
+
+Order by clause : To display rows in the sorted order either in asc or desc
+
+
+SQL> select * from boschemp order by salary;
+
+     EMPID NAME                   AGE DEPARTMENT          SALARY HIREDATE
+---------- --------------- ---------- --------------- ---------- ---------
+         2 Jane                    25 HR                   45000 10-SEP-25
+         1 John                    30 IT                   60000 10-SEP-25
+         3 Sam                     40 General              75000 10-SEP-25
+
+SQL> select * from boschemp order by salary desc;
+
+     EMPID NAME                   AGE DEPARTMENT          SALARY HIREDATE
+---------- --------------- ---------- --------------- ---------- ---------
+         3 Sam                     40 General              75000 10-SEP-25
+         1 John                    30 IT                   60000 10-SEP-25
+         2 Jane                    25 HR                   45000 10-SEP-25
+
+SQL>
+
+================================================================================
+
+SQL> select * from boschemp;
+
+     EMPID NAME                   AGE DEPARTMENT          SALARY HIREDATE
+---------- --------------- ---------- --------------- ---------- ---------
+         1 John                    30 IT                   60000 10-SEP-25
+         2 Jane                    25 HR                   45000 10-SEP-25
+         3 Sam                     40 General              75000 10-SEP-25
+
+SQL> select * from boschemp order by Age ;
+
+     EMPID NAME                   AGE DEPARTMENT          SALARY HIREDATE
+---------- --------------- ---------- --------------- ---------- ---------
+         2 Jane                    25 HR                   45000 10-SEP-25
+         1 John                    30 IT                   60000 10-SEP-25
+         3 Sam                     40 General              75000 10-SEP-25
+
+SQL> select * from boschemp order by Age desc;
+
+     EMPID NAME                   AGE DEPARTMENT          SALARY HIREDATE
+---------- --------------- ---------- --------------- ---------- ---------
+         3 Sam                     40 General              75000 10-SEP-25
+         1 John                    30 IT                   60000 10-SEP-25
+         2 Jane                    25 HR                   45000 10-SEP-25
+
+SQL> select * from boschemp order by Age asc ;
+
+     EMPID NAME                   AGE DEPARTMENT          SALARY HIREDATE
+---------- --------------- ---------- --------------- ---------- ---------
+         2 Jane                    25 HR                   45000 10-SEP-25
+         1 John                    30 IT                   60000 10-SEP-25
+         3 Sam                     40 General              75000 10-SEP-25
+
+SQL>
+
+========================================================================================
+
+SQL> select max(salary) as "Max Salary" from boschemp;
+
+Max Salary
+----------
+     75000
+
+SQL> select min(salary) as "Min Salary" from boschemp;
+
+Min Salary
+----------
+     45000
+
+SQL> select sum(salary) as "Total Salary" from boschemp;
+
+Total Salary
+------------
+      180000
+
+SQL> select avg(salary) as "Average  Salary" from boschemp;
+
+Average  Salary
+---------------
+          60000
+
+SQL> select count(*) from boschemp
+  2  ;
+
+  COUNT(*)
+----------
+         3
+
+SQL> select count(*) as "Total No of Records " from boschemp;
+
+Total No of Records
+--------------------
+                   3
+
+SQL>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
